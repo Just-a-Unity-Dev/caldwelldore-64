@@ -1,9 +1,0 @@
-header:
-    set 0001 01
-    set 0002 01
-    mov 0001 eax
-    mov 0002 ebx
-    add eax ebx
-    store eax 0001
-    dout 0001
-    goto header

@@ -19,6 +19,9 @@ OPERATIONS:
 I/O
 04. output address as ascii (00000100)
 05. get input and store into register (00000101)
+12. print raw value of address (00010010)
+13. add a newline to message   (00010011)
+14. flush message out (00010100)
 
 MATHEMATICS
 06. add register and register together (00000110)
@@ -38,4 +41,3 @@ FILE SYSTEM
 
 EXIT
 11. exit (00010001)
-12. print raw value of address (00010010)

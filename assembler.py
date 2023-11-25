@@ -1,3 +1,4 @@
+import binascii
 byte = ""
 
 def register_to_byte(register: str):
@@ -15,17 +16,20 @@ def register_to_byte(register: str):
         case "efx":
             return "0" + "6"
 
-with open("rom.code") as file:
+with open("source.rom") as file:
     headers = {}
+    current_byte = 500
     for line in file.readlines():
         args = line.strip().split(" ")
         command = args.pop(0)
-        current_byte = 500
         if command.startswith(";"):
             continue
         if command.endswith(":"):
-            headers[command[:-1]] = (current_byte, 123)
+            byte += "00"
+            headers[command[:-1]] = (current_byte + 1, 123)
+            current_byte += 1
             continue
+        print(headers)
 
         if command == "noop": # noop
             byte += "00"
@@ -91,6 +95,16 @@ with open("rom.code") as file:
         if command == "dout":
             byte += "12"
             byte += args[0]
+            current_byte += 4
+        if command == "nl":
+            byte += "13"
+            current_byte += 1
+        if command == "flush":
+            byte += "14"
+            current_byte += 1
+        if command == "nlflush":
+            byte += "1314"
             current_byte += 2
 
-print(byte)
+with open("data.rom", "w") as file:
+    file.write(byte)

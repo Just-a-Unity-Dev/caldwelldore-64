@@ -1,5 +1,7 @@
-import time
+import specs
 import numpy as np
+import time
+import sys
 import re
 
 # instructions = re.findall('..', '030001010300020102000101020002020601020401010100010a01f511')
@@ -17,7 +19,7 @@ print("Loaded ROM: " + rom) # 30 bytes total
 instructions = re.findall('..', rom)
 print("bROM: " + ';'.join(instructions))
 
-program_counter = 500
+program_counter = specs.instruction_byte
 instruction_register = 0
 eax = 0
 ebx = 0
@@ -25,7 +27,7 @@ ecx = 0
 edx = 0
 eex = 0
 efx = 0
-ram = np.arange(2000)
+ram = np.arange(specs.ram_size)
 ram.fill(0)
 
 def load_into_memory():
@@ -122,6 +124,7 @@ def dprint(*values: object) -> None:
     if debug:
         print(*values)
 
+message_queue = ""
 while running:
     dprint([eax, ebx, ram, program_counter])
     instruction_register = get_memory_from_address(program_counter)
@@ -147,11 +150,13 @@ while running:
     if instruction_register == 5:
         pass
     if instruction_register == 6: # add register and register together
-        original = get_memory_from_address(program_counter + 1)
-        first = get_register_argument()
-        second = get_register_argument()
-        set_register(original, first + second) 
-        dprint("added: reg: ", original, "eax: ", first, "ebx: ", second)
+        first_original = get_memory_from_address(program_counter + 1)
+        second_original = get_memory_from_address(program_counter + 2)
+        program_counter += 2
+
+        dprint("added: reg: ", first_original, "eax: ", get_register_value(first_original), "ebx: ", get_register_value(second_original))
+        set_register(first_original, get_register_value(first_original) + get_register_value(second_original))
+        set_register(second_original, 0)
     if instruction_register == 7:
         pass
     if instruction_register == 8:
@@ -174,9 +179,14 @@ while running:
     if instruction_register == 16:
         pass
     if instruction_register == 17:
-        dprint("exit")
         exit()
     if instruction_register == 18:
-        print(get_memory_from_address(get_memory_argument()))
+        message_queue += str(get_memory_from_address(get_memory_argument()))
+    if instruction_register == 19:
+        message_queue += "\n"
+    if instruction_register == 20:
+        sys.stdout.write(str(message_queue))
+        sys.stdout.flush()
+        message_queue = ""
     program_counter += 1
-    time.sleep(.1)
+    time.sleep(1 / specs.clock_speed)
