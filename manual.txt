@@ -1,0 +1,41 @@
+The Caldwelldore 64 is an 8-bit badly made laptop by Caldwell Business Machines for work purposes.
+It is also used by Cool Ass Hackers™ because it's the only good laptop on the market of 2330 after
+the evil nuclear war of '56.
+SPECS:
+RAM: 2 KB of memory, first 500 bytes reserved for variables, 501st byte and onward reserved for commands
+
+RAM ADDRESS 01f5 TO 05dc RESERVED FOR INSTRUCTIONS
+RAM ADDRESS 0000 TO 01f4 RESERVED FOR MEMORY
+
+HARD DRIVE SPACE: 8 KB HDD which can be upgraded to 16 KB and 32 KB
+CPU: Clock speed of 10hz with 8 registers (one program counter, one instruction register) - six reserved for multi-use: eax, ebx, ecx, edx, eex, efx
+
+OPERATIONS:
+00. noop (00000000)
+01. move  register  into address (00000001)
+02. move address(v) into register (00000010)
+03. hotload into address (00000011)
+
+I/O
+04. output address as ascii (00000100)
+05. get input and store into register (00000101)
+
+MATHEMATICS
+06. add register and register together (00000110)
+07. subtract register and register together (00000111)
+08. multiply register and register together (00001000)
+09. divide register and register together (00001001)
+
+GOTO/IF ELSE
+0A. go to address in RAM - do not load in arguments from commands as it will do its best to (00001010)
+0B. if register equal to register then goto address else goto address (00001011)
+0C. if register not equal to register then goto address else goto address (00001100)
+0D. if register bigger than register then goto address else goto address (00001101)
+0E. if register smaller than register then goto address else goto address (00001110)
+FS
+0F. write register to disk address (00001111)
+10. read disk address to register (00010000)
+
+EXIT
+11. exit (00010001)
+12. print raw value of address (00010010)
