@@ -17,7 +17,7 @@ print("Loaded ROM: " + rom) # 30 bytes total
 instructions = re.findall('..', rom)
 print("bROM: " + ';'.join(instructions))
 
-program_counter = 501
+program_counter = 500
 instruction_register = 0
 eax = 0
 ebx = 0
@@ -125,6 +125,7 @@ def dprint(*values: object) -> None:
 while running:
     dprint([eax, ebx, ram, program_counter])
     instruction_register = get_memory_from_address(program_counter)
+    print(program_counter)
     if instruction_register == 0: # noop
         dprint("noop: " + str(program_counter) + "-" + (hex(program_counter)))
         pass
@@ -174,6 +175,7 @@ while running:
     if instruction_register == 16:
         pass
     if instruction_register == 17:
+        print("exit")
         exit()
     if instruction_register == 18:
         print(get_memory_from_address(get_memory_argument()))

@@ -2,7 +2,7 @@ The Caldwelldore 64 is an 8-bit badly made laptop by Caldwell Business Machines 
 It is also used by Cool Ass Hackers™ because it's the only good laptop on the market of 2330 after
 the evil nuclear war of '56.
 SPECS:
-RAM: 2 KB of memory, first 500 bytes reserved for variables, 501st byte and onward reserved for commands
+RAM: 2 KB of memory, first 499 bytes reserved for variables, 500th byte and onward reserved for commands
 
 RAM ADDRESS 01f5 TO 05dc RESERVED FOR INSTRUCTIONS
 RAM ADDRESS 0000 TO 01f4 RESERVED FOR MEMORY
@@ -32,7 +32,7 @@ GOTO/IF ELSE
 0C. if register not equal to register then goto address else goto address (00001100)
 0D. if register bigger than register then goto address else goto address (00001101)
 0E. if register smaller than register then goto address else goto address (00001110)
-FS
+FILE SYSTEM
 0F. write register to disk address (00001111)
 10. read disk address to register (00010000)
 
