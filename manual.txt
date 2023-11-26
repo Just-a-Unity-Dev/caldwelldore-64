@@ -1,14 +1,18 @@
 The Caldwelldore 64 is an 8-bit badly made laptop by Caldwell Business Machines for work purposes.
 It is also used by Cool Ass Hackers™ because it's the only good laptop on the market of 2330 after
 the evil nuclear war of '56.
+
 SPECS:
-RAM: 2 KB of memory, first 499 bytes reserved for variables, 500th byte and onward reserved for commands
+    RAM: 2 KB of memory, first 499 bytes reserved for variables, 500th byte and onward reserved for commands
 
-RAM ADDRESS 01f5 TO 05dc RESERVED FOR INSTRUCTIONS
-RAM ADDRESS 0000 TO 01f4 RESERVED FOR MEMORY
+    RAM ADDRESS 01f5 TO 05dc RESERVED FOR INSTRUCTIONS
+    RAM ADDRESS 0000 TO 01f4 RESERVED FOR MEMORY
 
-HARD DRIVE SPACE: 8 KB HDD which can be upgraded to 16 KB and 32 KB
-CPU: Clock speed of 10hz with 8 registers (one program counter, one instruction register) - six reserved for multi-use: eax, ebx, ecx, edx, eex, efx
+    HARD DRIVE SPACE: 8 KB HDD which can be upgraded to 16 KB and 32 KB
+    CPU: Clock speed of 10hz with 8 registers (one program counter, one instruction register) - six reserved for multi-use: eax, ebx, ecx, edx, eex, efx
+
+ASSEMBLER NOTES:
+    DO NOTE THAT EFX AND EEX REGISTERS ARE RESERVED FOR ASSEMBLER. IF USING RAINSEMBLY, AVOID USING EFX AND EEX REGISTERS AND RATHER USE EAX-EDX.
 
 OPERATIONS:
 00. noop (00000000)

@@ -118,7 +118,7 @@ def set_register_argument(value):
     return value
 
 running = True
-debug = False
+debug = True
 
 def dprint(*values: object) -> None:
     if debug:

@@ -43,10 +43,23 @@ with open("source.rom") as file:
                 byte += register_to_byte(args[0])
                 byte += args[1]
                 current_byte += 4
-            else: # first argument is most likely an address
+            elif try_register_to_byte(args[1]): # first argument is most likely an address
                 byte += "02"
                 byte += args[0]
                 byte += register_to_byte(args[1])
+                current_byte += 4
+            else: # huh?? 
+                print("Failed to provide CPU register")
+                exit(1)
+        if command == "dupl": # dupl it to a memory address
+                byte += "02"
+                byte += args[0]
+                byte += "06"
+                current_byte += 4
+
+                byte += "01"
+                byte += args[1]
+                byte += "06"
                 current_byte += 4
         if command == "set": # hotload into address
             byte += "03"

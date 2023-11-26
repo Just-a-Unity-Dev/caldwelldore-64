@@ -1,0 +1,13 @@
+set:
+    mov 0002 ebx ; move 0002 to ebx
+    set 0002 01 ; move value 01 into addr 0002
+    ; we will use addr 0001 to hold our actual values
+    ; we will use addr 0002 to hold our dummy value
+
+header:
+    add eax ebx ; add eax(0 on init) and ebx(01 on init) together
+    dout 0001 ; output
+    ; everything onward here is just prepping for the next loop
+    mov eax 0001 ; store eax (output) into 0001
+    nlflush ; send message
+    goto header ; loop
