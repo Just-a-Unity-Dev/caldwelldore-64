@@ -16,6 +16,9 @@ def register_to_byte(register: str):
         case "efx":
             return "0" + "6"
 
+def try_register_to_byte(register: str):
+    return register in ['eax', 'ebx', 'ecx', 'edx', 'eex', 'efx']
+
 with open("source.rom") as file:
     headers = {}
     current_byte = 500
@@ -29,21 +32,22 @@ with open("source.rom") as file:
             headers[command[:-1]] = (current_byte + 1, 123)
             current_byte += 1
             continue
-        print(headers)
-
+    
         if command == "noop": # noop
             byte += "00"
             current_byte += 1
-        if command == "store": # move  register  into address
-            byte += "01"
-            byte += register_to_byte(args[0])
-            byte += args[1]
-            current_byte += 4
-        if command == "mov": # move address(v) into register
-            byte += "02"
-            byte += args[0]
-            byte += register_to_byte(args[1])
-            current_byte += 4
+        if command == "mov": 
+            if try_register_to_byte(args[0]): # is the first argument a valid register
+                # move  register  into address
+                byte += "01"
+                byte += register_to_byte(args[0])
+                byte += args[1]
+                current_byte += 4
+            else: # first argument is most likely an address
+                byte += "02"
+                byte += args[0]
+                byte += register_to_byte(args[1])
+                current_byte += 4
         if command == "set": # hotload into address
             byte += "03"
             byte += args[0]
