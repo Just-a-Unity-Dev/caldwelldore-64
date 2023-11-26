@@ -10,4 +10,4 @@ header:
     ; everything onward here is just prepping for the next loop
     mov eax 0001 ; store eax (output) into 0001
     nlflush ; send message
-    goto header ; loop
+    jump header ; loop
