@@ -81,7 +81,7 @@ with open("source.rom") as file:
             pass
         if command == 9:
             pass
-        if command == "goto": # GOTO
+        if command == "jump": # GOTO
             header_name = args[0]
             if header_name not in headers:
                 print("Invalid header name: " + header_name)
