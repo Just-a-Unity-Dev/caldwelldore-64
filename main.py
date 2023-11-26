@@ -125,68 +125,70 @@ def dprint(*values: object) -> None:
         print(*values)
 
 message_queue = ""
-while running:
-    dprint([eax, ebx, ram, program_counter])
-    instruction_register = get_memory_from_address(program_counter)
-    if instruction_register == 0: # noop
-        dprint("noop: " + str(program_counter) + "-" + (hex(program_counter)))
-        pass
-    if instruction_register == 1: # move  register  into address
-        address = get_memory_argument()
-        register = get_register_argument()
-        if address is not None:
-            ram[address] = register
-    if instruction_register == 2: # move address(v) into register
-        address = get_memory_argument()
-        set_register_argument(address)
-        dprint("store: address: ", address, "eax: ", eax, "ebx: ", ebx)
-    if instruction_register == 3: # hotload into address
-        address = get_memory_argument()
-        value = get_next_argument()
-        if address is not None:
-            ram[address] = value
-    if instruction_register == 4:
-        pass
-    if instruction_register == 5:
-        pass
-    if instruction_register == 6: # add register and register together
-        first_original = get_memory_from_address(program_counter + 1)
-        second_original = get_memory_from_address(program_counter + 2)
-        program_counter += 2
+try:
+    while running:
+        dprint([eax, ebx, ram, program_counter])
+        instruction_register = get_memory_from_address(program_counter)
+        if instruction_register == 0: # noop
+            dprint("noop: " + str(program_counter) + "-" + (hex(program_counter)))
+            pass
+        if instruction_register == 1: # move  register  into address
+            address = get_memory_argument()
+            register = get_register_argument()
+            if address is not None:
+                ram[address] = register
+        if instruction_register == 2: # move address(v) into register
+            address = get_memory_argument()
+            set_register_argument(address)
+            dprint("store: address: ", address, "eax: ", eax, "ebx: ", ebx)
+        if instruction_register == 3: # hotload into address
+            address = get_memory_argument()
+            value = get_next_argument()
+            if address is not None:
+                ram[address] = value
+        if instruction_register == 4:
+            pass
+        if instruction_register == 5:
+            pass
+        if instruction_register == 6: # add register and register together
+            first_original = get_memory_from_address(program_counter + 1)
+            second_original = get_memory_from_address(program_counter + 2)
+            program_counter += 2
 
-        dprint("added: reg: ", first_original, "eax: ", get_register_value(first_original), "ebx: ", get_register_value(second_original))
-        set_register(first_original, get_register_value(first_original) + get_register_value(second_original))
-        set_register(second_original, 0)
-    if instruction_register == 7:
-        pass
-    if instruction_register == 8:
-        pass
-    if instruction_register == 9:
-        pass
-    if instruction_register == 10: # GOTO
-        address = get_address_argument()
-        program_counter = int(address) - 1 # because at the end, program_counter gets incremented by one
-    if instruction_register == 11:
-        pass
-    if instruction_register == 12:
-        pass
-    if instruction_register == 13:
-        pass
-    if instruction_register == 14:
-        pass
-    if instruction_register == 15:
-        pass
-    if instruction_register == 16:
-        pass
-    if instruction_register == 17:
-        exit()
-    if instruction_register == 18:
-        message_queue += str(get_memory_from_address(get_memory_argument()))
-    if instruction_register == 19:
-        message_queue += "\n"
-    if instruction_register == 20:
-        sys.stdout.write(str(message_queue))
-        sys.stdout.flush()
-        message_queue = ""
-    program_counter += 1
-    time.sleep(1 / specs.clock_speed)
+            dprint("added: reg: ", first_original, "eax: ", get_register_value(first_original), "ebx: ", get_register_value(second_original))
+            set_register(first_original, get_register_value(first_original) + get_register_value(second_original))
+        if instruction_register == 7:
+            pass
+        if instruction_register == 8:
+            pass
+        if instruction_register == 9:
+            pass
+        if instruction_register == 10: # GOTO
+            address = get_address_argument()
+            program_counter = int(address) - 1 # because at the end, program_counter gets incremented by one
+        if instruction_register == 11:
+            pass
+        if instruction_register == 12:
+            pass
+        if instruction_register == 13:
+            pass
+        if instruction_register == 14:
+            pass
+        if instruction_register == 15:
+            pass
+        if instruction_register == 16:
+            pass
+        if instruction_register == 17:
+            exit()
+        if instruction_register == 18:
+            message_queue += str(get_memory_from_address(get_memory_argument()))
+        if instruction_register == 19:
+            message_queue += "\n"
+        if instruction_register == 20:
+            sys.stdout.write(str(message_queue))
+            sys.stdout.flush()
+            message_queue = ""
+        program_counter += 1
+        time.sleep(1 / specs.clock_speed)
+except KeyboardInterrupt:
+    print("^C")
